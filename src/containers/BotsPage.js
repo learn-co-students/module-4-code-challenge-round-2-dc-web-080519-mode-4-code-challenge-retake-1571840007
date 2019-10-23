@@ -17,45 +17,25 @@ class BotsPage extends React.Component {
       .then(bots => this.setState({ bots }));
   }
 
-  addBotToArmy = id => {
-    const {
-      state: { myArmy }
-    } = this;
-    if (!myArmy.includes(id)) {
-      this.setState({ myArmy: [...myArmy, id] });
+  addBotToArmy = bot => {
+    if (!this.state.myArmy.includes(bot)) {
+      this.setState({ myArmy: [...this.state.myArmy, bot] });
     }
   };
 
-  removeBotToArmy = id => {
-    const {
-      state: { myArmy }
-    } = this;
-    const updatedArmy = myArmy.filter(botId => botId !== id);
-    if (myArmy.includes(id)) {
+  removeBotToArmy = bot => {
+    const updatedArmy = this.state.myArmy.filter(armybot => armybot !== bot);
+    if (this.state.myArmy.includes(bot)) {
       this.setState({ myArmy: updatedArmy });
     }
   };
 
-  myBots() {
-    const {
-      state: { bots, myArmy }
-    } = this;
-
-    const result = myArmy.map(botId => bots.find(bObj => bObj.id === botId));
-    return result;
-  }
-
   render() {
-    const {
-      state: { bots, botSelectorCriteria },
-      addBotToArmy,
-      removeBotToArmy
-    } = this;
     return (
       <div>
         <BotSelector />
-        <YourBotArmy bots={this.myBots()} removeBotToArmy={removeBotToArmy} />
-        <BotCollection bots={bots} addBotToArmy={addBotToArmy} />
+        <YourBotArmy bots={this.state.myArmy} removeBotToArmy={this.removeBotToArmy} />
+        <BotCollection bots={this.state.bots} addBotToArmy={this.addBotToArmy} />
       </div>
     );
   }
