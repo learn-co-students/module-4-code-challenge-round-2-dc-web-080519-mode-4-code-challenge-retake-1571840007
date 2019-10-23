@@ -21,7 +21,9 @@ const BotSelector = props => {
         <input type="range" value="30" name="armor" step="1" />
       </div>
 
-      <h3>Import bots meeting this criteria</h3>
+      <h3>Import bots meeting this criteria
+        <button>Import</button>
+      </h3>
     </div>
   );
 };
